@@ -1,4 +1,3 @@
-import { setupTables } from '../database/setup';
 import { exit } from 'process';
 import moment from 'moment';
 import { historicalAssetSync, nearRealTimeAssetSync } from './assets';

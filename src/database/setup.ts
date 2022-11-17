@@ -7,8 +7,8 @@ import { createMintsTableSQL } from "./mints"
 import { createOrdersTableSQL } from "./orders"
 import { createTradesTableSQL } from "./trades"
 import { createTransfersTableSQL } from "./transfers"
-import * as dotenv from 'dotenv';
-dotenv.config();
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config({ path: '../../.env' })
 
 export const dbParams = {
     "host": process.env.DB_HOST,
@@ -18,7 +18,7 @@ export const dbParams = {
     "user": process.env.DB_USER
   }
 
-export const setupTables = async(): Promise<void> => {
+const setupTables = async(): Promise<void> => {
   const client = new Client(dbParams);
   await client.connect();
   await client.query(createCursorsTableSQL);
