@@ -35,8 +35,6 @@ const main = async()=>{
     process.exit(1)
   }
 
-  await setupTables(); // comment out if tables already set up
-
   switch (args[0]) {
     case 'assets':
       if (args.length == 3) {
