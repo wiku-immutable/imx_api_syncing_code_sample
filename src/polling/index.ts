@@ -1,4 +1,3 @@
-import { setupTables } from '../database/setup';
 import { exit } from 'process';
 import moment from 'moment';
 import { historicalAssetSync, nearRealTimeAssetSync } from './assets';
@@ -34,8 +33,6 @@ const main = async()=>{
     console.error(err)
     process.exit(1)
   }
-
-  await setupTables(); // comment out if tables already set up
 
   switch (args[0]) {
     case 'assets':

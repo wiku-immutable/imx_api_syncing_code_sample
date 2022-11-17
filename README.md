@@ -6,18 +6,20 @@ Currently, polling our API endpoints in short/frequent intervals in the only way
 
 ## Assumed stack
 
-We have assumed the AWS stack for simplicity however, please feel free to use any stack you wish.
+We have assumed the AWS stack or local PostgreSQL database for simplicity however, please feel free to use any stack you wish.
 
 | Component | Name |
 | -- | -- |
 | `Language` | Typescript |
-| `Database` | Aws Aurora Serverless v2 (PostgreSQL) |
+| `Database` | PostreSQL locally or on Aws Aurora Serverless v2 |
 
 ## Installation
 
-`npm install`
+Install all the dependencies using `npm install`
 
-Add your database credentials in `src/database/setup.ts` to connect to your AWS Aurora PostgreSQL database
+Copy .env.example to .env and populate your database details and credentials
+
+Run `npx ts-node setup.ts` to setup your tables
 
 Remember to change the constants in `src/constants.ts` to suit your desired polling frequency
 
@@ -29,21 +31,21 @@ These code samples illustrate 3 methods of ingesting our endpoint data. They ass
 ### 1. Historical data dump ingestion
 If you would like to store a local version of **all** ImmutableX data, it's best to ingest this via data dumps of flat files as even with an API key, this would take weeks. Code samples in `src/data_dump` illustrate how to ingest these data dumps easily. You can do this with the command:
 
-`ts-node src/data_dump/index.ts assets {assets_file_name}`
+`npx ts-node src/data_dump/index.ts assets {assets_file_name}`
 
 Note: to get access to the complete set of data dumps, please contact our Support team
 
 ### 2. Backlog or historical sync
 If you would like to poll over a specific interval and for a specific endpoint, e.g. polling our `/assets` endpoint from Jan 2022 to Feb 2022, you can do this with the command:
 
-`ts-node src/polling/index.ts assets 2022-01-01T00:00:00 2022-02-01T00:00:00`
+`npx ts-node src/polling/index.ts assets 2022-01-01T00:00:00 2022-02-01T00:00:00`
 
 ### 3. Near real-time sync
 If you would like to poll most recent data of an endpoint onwards from a specific time or from present time, you can do this with the command:
 
-**[From Jan 2022 to present]:** `ts-node src/polling/index.ts assets 2022-01-01T00:00:00`
+**[From Jan 2022 to present]:** `npx ts-node src/polling/index.ts assets 2022-01-01T00:00:00`
 
-**[Present time onwards]:** `ts-node src/polling/index.ts assets`
+**[Present time onwards]:** `npx ts-node src/polling/index.ts assets`
 
 Note: if you select a specific time to start polling from and the process unexpectedly stops, re-running it with the same timestamp will make the program resume from where it stopped.
 

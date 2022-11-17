@@ -7,16 +7,18 @@ import { createMintsTableSQL } from "./mints"
 import { createOrdersTableSQL } from "./orders"
 import { createTradesTableSQL } from "./trades"
 import { createTransfersTableSQL } from "./transfers"
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config({ path: '../../.env' })
 
 export const dbParams = {
-    "host": '',
-    "password": '',
-    "port": 5432,
-    "database": '',
-    "user": ''
+    "host": process.env.DB_HOST,
+    "password": process.env.DB_PASSWORD,
+    "port": Number(process.env.DB_PORT),
+    "database": process.env.DB_NAME,
+    "user": process.env.DB_USER
   }
 
-export const setupTables = async(): Promise<void> => {
+const setupTables = async(): Promise<void> => {
   const client = new Client(dbParams);
   await client.connect();
   await client.query(createCursorsTableSQL);
@@ -36,3 +38,5 @@ export const setupTables = async(): Promise<void> => {
 
   await client.end()
 }
+
+setupTables();
