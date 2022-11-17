@@ -11,7 +11,7 @@ We have assumed the AWS stack or local PostgreSQL database for simplicity howeve
 | Component | Name |
 | -- | -- |
 | `Language` | Typescript |
-| `Database` | PostreSQL locally or on Aws Aurora Serverless v2 |
+| `Database` | PostgreSQL locally or on AWS Aurora Serverless v2 |
 
 ## Installation
 
